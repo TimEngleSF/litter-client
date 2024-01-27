@@ -4,17 +4,17 @@ import URLpath from './URLpath';
 
 async function getAuthToken() {
   try {
-    console.log('Inside getAuthToken');
+    // console.log('Inside getAuthToken');
     const res = await fetch(URLpath('refresh-token'), {
       method: 'GET',
       credentials: 'include',
     });
     const response = await res.json();
-    console.log('getAuthToken response: ', response);
+    // console.log('getAuthToken response: ', response);
     Cookies.set('authToken', response.token, { expires: 7 });
   } catch (err) {
-    console.log('In getAuthToken catch');
-    console.error(err);
+    // console.log('In getAuthToken catch');
+    // console.error(err);
   }
 }
 
@@ -42,15 +42,15 @@ export default async function fetchData(path, method, body) {
       try {
         await getAuthToken();
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     }
-    console.log('fetchData response: ', response.errorCode);
+    // console.log('fetchData response: ', response.errorCode);
     return response;
   } catch (err) {
-    console.log('Hello');
-    console.error('fetchData err request', err.request);
-    console.error('fetchData err body', err.request.body);
+    // console.log('Hello');
+    // console.error('fetchData err request', err.request);
+    // console.error('fetchData err body', err.request.body);
     return err;
   }
 }

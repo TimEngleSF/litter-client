@@ -12,7 +12,7 @@ export async function fetchLogin(body) {
     }
     return response;
   } catch (err) {
-    console.error(err);
+    // console.error(err);
   }
 }
 
@@ -27,7 +27,7 @@ export async function fetchLogOut() {
     const response = await res.json();
     return response;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 }
 
@@ -36,9 +36,9 @@ export async function fetchLeaderboardData(path) {
     const response = await fetchData(path, 'GET');
     return response;
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     fetchLogOut();
-    console.log('lb-error', err);
+    // console.log('lb-error', err);
     return err;
   }
 }
@@ -48,7 +48,7 @@ export async function fetchProfileData(user) {
     const response = await fetchData(`photo/${user}`, 'GET');
     return response;
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     fetchLogOut();
   }
 }
@@ -67,7 +67,7 @@ export async function fetchImageToAI(image) {
     const response = await res.json();
     return response;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 }
 
