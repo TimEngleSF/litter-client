@@ -22,7 +22,7 @@ export default function Login({ setUser }) {
       navigate('/');
     } catch (err) {
       setInvalidLogin(true);
-      console.error(err);
+      // console.error(err);
     }
   };
 
@@ -38,7 +38,12 @@ export default function Login({ setUser }) {
   return (
     <div className="login-signup-container main-container">
       <div className="login-signup-header">
-        <button className="back-button" type="button" aria-label="Back" onClick={goBack}>
+        <button
+          className="back-button"
+          type="button"
+          aria-label="Back"
+          onClick={goBack}
+        >
           <FaAngleLeft />
         </button>
         <div className="login-signup-header-text">
@@ -48,13 +53,13 @@ export default function Login({ setUser }) {
       </div>
 
       <form className="login-signup-form">
-        {invalidLogin
-          ? (
-            <div className="invalid-login-signup">
-              <small>Incorrect username and/or password</small>
-            </div>
-          )
-          : <br className="invalid-login-signup" />}
+        {invalidLogin ? (
+          <div className="invalid-login-signup">
+            <small>Incorrect username and/or password</small>
+          </div>
+        ) : (
+          <br className="invalid-login-signup" />
+        )}
         <div className="login-signup-email">
           <FaRegEnvelope className="login-signup-icon" />
           <input
@@ -82,19 +87,12 @@ export default function Login({ setUser }) {
       </form>
 
       <div className="lower-buttons login-signup-buttons">
-        <button
-          type="button"
-          onClick={handleLogin}
-          id="login-signup-button"
-        >
+        <button type="button" onClick={handleLogin} id="login-signup-button">
           Login
         </button>
         <div className="sign-up">
           <small>Don&apos;t have an account?</small>
-          <Link
-            to="/register"
-            className="register-button"
-          >
+          <Link to="/register" className="register-button">
             <small>Sign Up</small>
           </Link>
         </div>

@@ -92,6 +92,6 @@ export async function fetchRegister(body) {
 
     return response;
   } catch (err) {
-    console.error(err);
+    // console.error(err);
   }
 }

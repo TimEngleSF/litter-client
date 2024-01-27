@@ -30,7 +30,7 @@ export default function Register({ setUser }) {
         setUser(response.user.displayUsername);
         navigate('/');
       } catch (err) {
-        console.error(err);
+        // console.error(err);
       }
     }
   };
@@ -41,7 +41,10 @@ export default function Register({ setUser }) {
   };
 
   const handlePasswordCheck = () => {
-    const [pass, confPass] = [registerData.password, registerData.confirmPassword];
+    const [pass, confPass] = [
+      registerData.password,
+      registerData.confirmPassword,
+    ];
 
     // If passwords don't match, user will be notified.
     if (confPass.length && pass !== confPass) {
@@ -65,7 +68,12 @@ export default function Register({ setUser }) {
   return (
     <div className="login-signup-container main-container">
       <div className="login-signup-header">
-        <button className="back-button" type="button" aria-label="Back" onClick={goBack}>
+        <button
+          className="back-button"
+          type="button"
+          aria-label="Back"
+          onClick={goBack}
+        >
           <FaAngleLeft />
         </button>
         <div className="login-signup-header-text">
@@ -154,12 +162,11 @@ export default function Register({ setUser }) {
             required
           />
         </div>
-        {(registerData.password.length > 0 && !validPassword)
-          && (
-            <div className="valid-password">
-              <small>Password must be a minimum of 6 characters</small>
-            </div>
-          )}
+        {registerData.password.length > 0 && !validPassword && (
+          <div className="valid-password">
+            <small>Password must be a minimum of 6 characters</small>
+          </div>
+        )}
         <br className="login-signup-form-break" />
         <div className="login-signup-confirm-password">
           <FiLock className="login-signup-icon" />
@@ -174,20 +181,15 @@ export default function Register({ setUser }) {
             required
           />
         </div>
-        {!passwordMatch
-          && (
-            <div className="matching-password">
-              <small>Passwords do not match</small>
-            </div>
-          )}
+        {!passwordMatch && (
+          <div className="matching-password">
+            <small>Passwords do not match</small>
+          </div>
+        )}
       </form>
 
       <div className="lower-buttons login-signup-buttons">
-        <button
-          type="button"
-          onClick={handleRegister}
-          id="login-signup-button"
-        >
+        <button type="button" onClick={handleRegister} id="login-signup-button">
           Register
         </button>
         <Link to="/">
