@@ -2,34 +2,73 @@
 import Cookies from 'js-cookie';
 import fetchData from './fetch';
 import URLpath from './URLpath';
-
-export async function fetchLogin(body) {
-  try {
-    const response = await fetchData('login', 'POST', body);
-    if (response.token) {
-      Cookies.set('authToken', response.token, { expires: 7 });
-      Cookies.set('username', response.user.displayUsername, { expires: 7 });
-    }
-    return response;
-  } catch (err) {
+import axios from 'axios'
+//export async function fetchLogin(body) {
+  //try {
+    //const response = await fetchData('login', 'POST', body);
+    //if (response.token) {
+      //Cookies.set('authToken', response.token, { expires: 7 });
+     // Cookies.set('username', response.user.displayUsername, { expires: 7 });
+    //}
+    //return response;
+  //} catch (err) {
     // console.error(err);
-  }
-}
-
-export async function fetchLogOut() {
+  //}
+//}
+//
+export const fetchLogin  = async (body) => {
   try {
-    const res = await fetch(URLpath('logout'), {
+    const response = await axios({
+      method: 'Post',
+      url: URLpath('login'),
+      withCredentials: true,
+      headers: { 'Content-Type': 'application/json' },
+      data: body,
+    });
+	  const {data} = response
+    if (data.token) {
+      Cookies.set('authToken', data.token, { expires: 7 });
+      Cookies.set('username', data.user.displayUsername, { expires: 7 });
+    }
+    return data;
+  } catch (err) {
+    // console.log();
+  }
+};
+
+
+export const fetchLogOut = async () => {
+  try {
+    const token = Cookies.get('authToken');
+    const { data } = await axios({
       method: 'POST',
-      credentials: 'include',
+      url: URLpath('logout'),
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
     });
     Cookies.remove('authToken');
     Cookies.remove('username');
-    const response = await res.json();
-    return response;
-  } catch (err) {
-    // console.log(err);
+    return data;
+  } catch (error) {
+    //
   }
-}
+};
+
+
+//export async function fetchLogOut() {
+  //try {
+    //const res = await fetch(URLpath('logout'), {
+      //method: 'POST',
+      //credentials: 'include',
+    //});
+    //Cookies.remove('authToken');
+    //Cookies.remove('username');
+    //const response = await res.json();
+    //return response;
+  //} catch (err) {
+    // console.log(err);
+  //}
+//}
 
 export async function fetchLeaderboardData(path) {
   try {
